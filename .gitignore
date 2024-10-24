@@ -1,0 +1,57 @@
+# Binary files for executables and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+#Config
+.env
+
+# Test binaries created with `go test -c`
+*.test
+
+# Go coverage output files
+*.out
+
+# Dependency directories (uncomment below to include)
+# vendor/
+
+# GoLand configuration files
+/.idea/
+/*.iml
+
+# Local development environment settings
+/.shelf/
+/workspace.xml
+
+# HTTP Client requests
+/httpRequests/
+
+# Local data source storage files
+/dataSources/
+/dataSources.local.xml
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+
+# Cached files
+.cache/
+*.cache
+
+# macOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+
+## Go module files (if using go mod)
+#go.sum
+#go.mod
+
+# Temporary editor files (e.g., Vim)
+*~
+*.swp
