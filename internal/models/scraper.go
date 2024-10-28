@@ -3,12 +3,14 @@ package models
 import (
 	"context"
 	"database/sql"
-	"github.com/google/uuid"
 	"log"
-	"rss-scraper/internal/database"
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/google/uuid"
+
+	"rss-scraper/internal/database"
 )
 
 func StartScraping(db *database.Queries, concurrency int, timeBetweenRequest time.Duration) {

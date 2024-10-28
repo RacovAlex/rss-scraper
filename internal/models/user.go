@@ -1,8 +1,9 @@
 package models
 
 import (
-	"rss-scraper/internal/database"
 	"time"
+
+	"rss-scraper/internal/database"
 
 	"github.com/google/uuid"
 )

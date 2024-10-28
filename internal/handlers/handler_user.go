@@ -3,18 +3,24 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/google/uuid"
 	"net/http"
+	"time"
+
+	"github.com/google/uuid"
+
 	"rss-scraper/internal/database"
 	"rss-scraper/internal/models"
 	"rss-scraper/pkg/utils"
-	"time"
 )
 
+// ApiConfig предоставляет конфигурацию для API-обработчиков,
+// включая доступ к базе данных через объект Queries.
 type ApiConfig struct {
 	DB *database.Queries
 }
 
+// HandlerCreateUser создает нового пользователя, декодируя его имя из JSON-запроса.
+// Регистрирует пользователя в базе данных и возвращает его данные.
 func (apiCfg *ApiConfig) HandlerCreateUser(w http.ResponseWriter, r *http.Request) {
 	type parameters struct {
 		Name string `json:"name"`
@@ -26,6 +32,8 @@ func (apiCfg *ApiConfig) HandlerCreateUser(w http.ResponseWriter, r *http.Reques
 		utils.ResponseWithError(w, http.StatusBadRequest, fmt.Sprintf("Can't decode JSON: %v", err))
 		return
 	}
+
+	// Создание нового пользователя в базе данных.
 	user, err := apiCfg.DB.CreateUser(r.Context(), database.CreateUserParams{
 		ID:        uuid.New(),
 		Name:      params.Name,
@@ -40,10 +48,12 @@ func (apiCfg *ApiConfig) HandlerCreateUser(w http.ResponseWriter, r *http.Reques
 	utils.RespondWithJSON(w, http.StatusCreated, models.DatabaseUserToUser(user))
 }
 
+// HandlerGetUser возвращает информацию о текущем пользователе.
 func (apiCfg *ApiConfig) HandlerGetUser(w http.ResponseWriter, r *http.Request, user database.User) {
 	utils.RespondWithJSON(w, http.StatusOK, models.DatabaseUserToUser(user))
 }
 
+// HandlerGetPostsForUsers возвращает список постов для текущего пользователя.
 func (apiCfg *ApiConfig) HandlerGetPostsForUsers(w http.ResponseWriter, r *http.Request, user database.User) {
 	posts, err := apiCfg.DB.GetPostsForUsers(r.Context(), database.GetPostsForUsersParams{
 		UserID: user.ID,

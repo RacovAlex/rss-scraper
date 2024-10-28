@@ -1,9 +1,10 @@
 package models
 
 import (
+	"time"
+
 	"github.com/google/uuid"
 	"rss-scraper/internal/database"
-	"time"
 )
 
 type Post struct {
